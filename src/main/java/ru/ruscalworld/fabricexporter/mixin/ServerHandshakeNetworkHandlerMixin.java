@@ -18,6 +18,6 @@ public class ServerHandshakeNetworkHandlerMixin {
         MetricRegistry metricRegistry = FabricExporter.getInstance().getMetricRegistry();
         Collector collector = metricRegistry.getCustomMetrics().get("handshakes");
         if (!(collector instanceof Counter counter)) return;
-        counter.labels(packet.intendedState().name().toLowerCase()).inc();
+        counter.labels(packet.getIntendedState().name().toLowerCase()).inc();
     }
 }

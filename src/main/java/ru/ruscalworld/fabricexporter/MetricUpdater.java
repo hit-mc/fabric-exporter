@@ -1,15 +1,15 @@
 package ru.ruscalworld.fabricexporter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.ruscalworld.fabricexporter.metrics.Metric;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MetricUpdater extends TimerTask {
-    private final static Logger logger = LoggerFactory.getLogger("MetricUpdater");
+    private final static Logger logger = Logger.getLogger("MetricUpdater");
     private final List<Metric> metrics = new ArrayList<>();
     private final FabricExporter exporter;
 
@@ -23,7 +23,7 @@ public class MetricUpdater extends TimerTask {
             try {
                 metric.update(this.getExporter());
             } catch (Exception exception) {
-                logger.error("Error updating metric " + metric.getName(), exception);
+                logger.log(Level.SEVERE, exception, () -> "Error updating metric " + metric.getName());
             }
         }
     }
